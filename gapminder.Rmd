@@ -34,8 +34,34 @@ nrow(gapminder)
 unique(gapminder$country)
 ```
 
+```{r}
+summary(gapminder)
+```
 
+```{r}
+#install.packages("skimr")
+library("skimr")
+skim(gapminder)
+```
 
+```{r}
+filter(gapminder,  lifeExp < 30)
+filter(gapminder, country == "Afghanistan", year == max(year))
+```
 
+```{r}
+select(gapminder, country, year, pop)
+filter(gapminder, year == 2007)
+```
 
+```{r}
+select(gapminder, -continent) %>%
+  filter(year == 2007)
+```
+
+```{r}
+gapminder %>%
+  mutate(gdp = gdpPercap * pop) %>%
+  arrange(desc(gdp))
+```
 
