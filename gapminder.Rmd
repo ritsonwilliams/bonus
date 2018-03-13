@@ -1,0 +1,41 @@
+---
+title: "gapminder"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+gapminder <- read_csv("https://raw.githubusercontent.com/jules32/2017-11-30-MBARI/gh-pages/data/gapminder.csv")
+```
+
+```{r}
+head(gapminder, 3)
+tail(gapminder, 10)
+```
+
+```{r}
+str(gapminder)
+```
+
+```{r}
+dim(gapminder)
+ncol(gapminder)
+nrow(gapminder)
+```
+
+```{r}
+unique(gapminder$country)
+```
+
+
+
+
+
+
