@@ -43,7 +43,7 @@ summary(gapminder)
 library("skimr")
 skim(gapminder)
 ```
-
+#Manipulate Gapminder dataset
 ```{r}
 filter(gapminder,  lifeExp < 30)
 filter(gapminder, country == "Afghanistan", year == max(year))
@@ -63,5 +63,67 @@ select(gapminder, -continent) %>%
 gapminder %>%
   mutate(gdp = gdpPercap * pop) %>%
   arrange(desc(gdp))
+```
+
+```{r}
+gapminder %>%
+  group_by(country) %>%
+  mutate(gdp = gdpPercap * pop, max_gdp = max(gdp)) %>%
+  ungroup()
+```
+
+```{r}
+gapminder %>%
+  group_by(country) %>%
+  mutate(gdp = gdpPercap * pop) %>%
+  summarize(gdp_max = max(gdp))
+  
+  
+  
+```
+
+#Load CO2 data
+```{r}
+co2 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/co2.csv")
+```
+# join co2 and gapminder datasets
+```{r}
+head(co2)
+```
+```{r}
+gap2007 <- gapminder %>%
+  filter(year == 2007)
+```
+
+```{r}
+right_join(gap2007, co2, by = "country")
+```
+##Tidyr
+
+```{r}
+AirPassengers
+```
+```{r}
+gather(AirPassengers, "year", "month")
+#doesn't work due to a weird header format
+```
+
+```{r}
+gapwide <- read.csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/gapminder_wide.csv")
+```
+
+```{r}
+gap_better <- gapwide %>%
+  gather(observation, observ_value, -continent, -country) %>%
+  separate(observation, into = c("obs_type", "year"), sep = "_", convert = TRUE)
+```
+
+```{r}
+unique(gap_better$obs_type)
+```
+
+```{r}
+gap_better %>%
+  spread(obs_type, observ_value)
 ```
 
